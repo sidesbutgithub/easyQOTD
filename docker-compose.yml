@@ -1,0 +1,32 @@
+name: easyQOTD
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    restart: always
+#    volumes:
+#      - .:/bot
+  rdb:
+    image: redis
+    restart: always
+    ports:
+      - "6379"
+    volumes:
+      - rdb:/rdb
+  mongodb:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - "27017"
+    volumes:
+      - mongodb:/mongodb
+
+volumes:
+  rdb:
+  mongodb:
