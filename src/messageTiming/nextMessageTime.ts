@@ -21,7 +21,7 @@ async function startClock(channelId:string, discordClient: Client) {
     //start the timer asynchornously
     (async () => {
         while (true){
-            await setTimeout(Date.now()-currChannel.scheduledNext);
+            await setTimeout(currChannel.scheduledNext-Date.now());
             const sendChannel = discordClient.channels.cache.get(channelId);
             if (sendChannel == undefined){
                 console.log(`${channelId} not found while clock running`);
