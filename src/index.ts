@@ -21,19 +21,6 @@ mongoose
     .catch((e) => {console.log(e); process.exit(1)});
 
 
-/*
-const testChannel = new RegisteredChannel({
-  _id: "testing",
-  serverId: "haha",
-  scheduledNext: Date.now(),
-});
-
-await testChannel.save();
-console.log("saved test channel successfully");
-console.log(await RegisteredChannel.findOne({_id: "testing"}));
-client.channels.cache.get('CHANNEL ID').send('Hello here!')
-*/
-
 const COMMANDS = new Collection<String, SlashCommand>();
 
 COMMANDS.set("ping", {
@@ -114,12 +101,10 @@ client.on(Events.ClientReady, async readyClient => {
     const activeChannels = await RegisteredChannel.find({active: true}).exec();
     console.log(activeChannels);
     for (var i of activeChannels){
-      startClock(i._id, client)
+      startClock(i._id, client);
     }
   })();
   console.log(`Successfully restarted message clocks`);
-  
-
 });
 
 
